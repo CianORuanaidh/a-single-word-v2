@@ -20,12 +20,28 @@ class App extends Component {
 
   // function to access poetry api & return object
   getPoems = () => {
-    console.log(this.state.searchWord);
+    // remove potential leading/trailing white space
+    let userInput = this.state.searchWord.trim().toLocaleLowerCase();
+    let regex = /[a-z]^cd/;
+    console.log(regex.exec(userInput));
+    // check to see if word is at least 3 letters long
+    if (userInput.length > 2) {
+      // test to see if input contains whitespace (is two words)
+      // regex conditional solution found here - https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space
+      if (/\s/g.test(userInput) === true ){
+        console.log("please enter only one word");
+      } else if (regex.exec(userInput) === null){
+        console.log("NO FUNNY BUSINESS");
+      }
+      
+    } else {
+      console.log("three letter word please!");
+    }
     // set isLoading to be true to update DOM
     this.setState({
       isLoading: true,
     });
-    axios.get(`http://poetrydb.org/lines/${this.state.searchWord}/lines.json`)
+    axios.get(`http://poetrydb.org/lines/${userInput}/lines.json`)
       .then((result) => {
         console.log(result);
         // collect object of result and store in a variable
@@ -39,7 +55,6 @@ class App extends Component {
 
         // delcare RegEx to check strings
         let regex = /[!@#$%^&*()_?:{}|<>[]/;
-
         
         // iterate through 'sourceText' object
         sourceText.forEach((poem)=>{
@@ -148,22 +163,28 @@ class App extends Component {
   render() {
     return ( 
       <div className="App">
+        <header>
+          <h1>One Word</h1>
+          <h2>Create a poem mash-up based on one word</h2>
+          <p>Enter a single word below. Using that word, we create a mash-up 
+            poem based on the back catalog of classic authors.</p>
+          {/* <p>Each line in your poem appers in a poem that contains the word you entered.</p> */}
 
-        <h1>One Word</h1>
-        <h2>Create a poem mash up based on one word</h2>
-        
+        </header>
+        <main>
+          <form>
 
-        {
+          </form>
+          {
           // check to see if api is 'loading'
           this.state.isLoading ? 
           (
             // if 'loading' return message
-            <div>Loading</div>
+            <div className="loadingScreen">Loading</div>
           ) : (      
             // if NOT 'loading' return for to resubmit
             /* form to handle input from user */
             <form action="submit" onSubmit={this.handleSubmit}>                         
-              
               {/* text input with name 'searchWord'
                   value is this.state.searchWord */}                    
               <input type="text" 
@@ -171,44 +192,42 @@ class App extends Component {
                 onChange={this.handleChange}
                 name="searchWord"
                 value={this.state.searchWord}/>
-
               <button type="submit">
                 get poem
               </button>
 
             </form>
           )
-        }
-
-        <Poem poem={this.state.userPoem}/>
-
-        <div className="poemCollection">
-          <h2>Poem Collection</h2>
-        </div> {/* END div.poemCollection  */}
-          {
-            // iterate through this.state.poems.dbPoems 
-              this.state.dbPoems.map((poem, i) =>{
-                let poemClass = `poem poem${i}`
-                return(
-                  // return unorderd list that will contain poem lines
-                  <ul key={poem[0]} className={poemClass}>
-                  <li><h2>Poem Title</h2></li>
-                  {
-                    // iterate through each poem and return list of lines
-                    poem[1].map((line, i)=>{
-                      return(
-                        <li key={i}>
-                          {line}
-                        </li>
-                      )
-                    })                          
-                    }                        
-                  </ul>
-                )              
-              })
           }
-        {/* <PoemList poemList={this.state.dbPoems}/> */}
-      </div>
+
+          <Poem poem={this.state.userPoem}/>
+          <PoemList poemList={this.state.dbPoems}/>
+
+          {/* {
+            // iterate through this.state.poems.dbPoems 
+            this.state.dbPoems.map((poem, i) =>{
+              let poemClass = `poem poem${i}`
+              return(
+                // return unorderd list that will contain poem lines
+                <ul key={poem[0]} className={poemClass}>
+                <li><h2>Poem Title</h2></li>
+                {
+                  // iterate through each poem and return list of lines
+                  poem[1].map((line, i)=>{
+                    return(
+                      <li key={i}>
+                        {line}
+                      </li>
+                    )
+                  })                          
+                  }                        
+                </ul>
+              )              
+            })
+          } */}
+        </main>
+
+      </div> // end of App
     );
   }
 }

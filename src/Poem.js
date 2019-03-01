@@ -42,7 +42,7 @@ class Poem extends Component {
               <button type="submit">Save poem</button>
             </form>
                 ) : (
-                    <h1>Holder</h1>
+                    <h1>poem will display here</h1>
                 )
             }
           </div>

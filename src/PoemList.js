@@ -4,59 +4,40 @@ import React, { Component } from 'react';
 class PoemList extends Component {
     // constructor(){
     //     super()
-    // }
+        
+    // } // end of constructor{}
 
     render(){
-        console.log('POEM LIST');
-
-        let poemsOut = this.props.poemList.map((poem)=>{
-            let poemVal = Object.values(poem)[0];
-            return poemVal;
-        });
-        console.log("poemsOut", poemsOut);
-
-        poemsOut.forEach((poem)=>{
-            poem.forEach((line)=>{
-                console.log(line);
-            });
-            console.log('\n\n\n\n\n');
-        })
-
         return(
             
-            <div>
-                <h4>This is List of POEMs</h4>
-                <ul>
-                {/* Take every line in userPoem and print to page */}
+            <div className="poemCollection">
+                <h2>Poem Collection</h2>
                 {
-                    poemsOut.forEach(() =>{
+                // iterate through this.state.poems.dbPoems 
+                this.props.poemList.map((poem, i) =>{
+                    let poemClass = `poem poem${i}`
+                    return(
+                        // return unorderd list that will contain poem lines
+                        <ul key={poem[0]} className={poemClass}>
+                        <li><h2>Poem Title</h2></li>
+                        {
+                        // iterate through each poem and return list of lines
+                        poem[1].map((line, i)=>{
                         return(
-                                <li>line</li>
+                            <li key={i}>
+                            {line}
+                            </li>
                         )
-                    })
-                }
-                </ul>
-            </div>
+                        })                          
+                        }                        
+                        </ul>
+                    )              
+                })
+               }
+            </div> // end poemCollection
             
         )
     }
 }
 
 export default PoemList;
-
- // this.props.poemList.map(poem => {
-        //     console.log("inside map");
-        //     console.log(Object.values(poem));
-        //     const arr = Object.values(poem);
-        //     console.log(Object.values(arr));
-        //     const arr2 = Object.values(arr);
-        //     console.log(Object.values(arr2));
-        //     return arr2[0].join(', ')
-        // })[0];
-
-        // temp0.map(poem => {
-        //     const arr = Object.values(poem);
-        //     const arr2 = Object.values(arr);
-        //     console.log(Array.isArray(arr2))
-        //     return arr2
-        //   })[0]
