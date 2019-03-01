@@ -14,6 +14,8 @@ class Poem extends Component {
         const oneWordDBRef = firebase.database().ref('poems');
         
         // push user poem to database
+        console.log('poem push');
+        console.log(this.props.poem);
         oneWordDBRef.push(this.props.poem);
     }
 

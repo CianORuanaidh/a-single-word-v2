@@ -122,14 +122,24 @@ class App extends Component {
     const oneWordDBRef = firebase.database().ref('poems');
 
     oneWordDBRef.on('value', (response) => {
-      let dbPoems = response.val();
-      for(let poemKey in dbPoems){
-        // console.log(poemKey);
-        // console.log(dbPoems[poemKey]);
-      
-        this.state.dbPoems.push({[poemKey]:dbPoems[poemKey]});
-        // console.log(this.state.dbPoems);
+      // create variable to hold data
+      let data = response.val();
+
+      // create array to hold returned objects
+      let newState = [];
+
+      for(let poemKey in data){
+        // store vaules in newState array
+        newState.push([
+          poemKey,
+          data[poemKey]
+        ]);
       } 
+
+      // setState of this.state.dbPoems to newState array
+      this.setState({
+        dbPoems: newState
+      })
     });
 
   }
@@ -172,12 +182,32 @@ class App extends Component {
 
         <Poem poem={this.state.userPoem}/>
 
-        <div>
+        <div className="poemCollection">
           <h2>Poem Collection</h2>
-        </div>
-        <PoemList poemList={this.state.dbPoems}/>
-
-
+        </div> {/* END div.poemCollection  */}
+          {
+            // iterate through this.state.poems.dbPoems 
+              this.state.dbPoems.map((poem, i) =>{
+                let poemClass = `poem poem${i}`
+                return(
+                  // return unorderd list that will contain poem lines
+                  <ul key={poem[0]} className={poemClass}>
+                  <li><h2>Poem Title</h2></li>
+                  {
+                    // iterate through each poem and return list of lines
+                    poem[1].map((line, i)=>{
+                      return(
+                        <li key={i}>
+                          {line}
+                        </li>
+                      )
+                    })                          
+                    }                        
+                  </ul>
+                )              
+              })
+          }
+        {/* <PoemList poemList={this.state.dbPoems}/> */}
       </div>
     );
   }

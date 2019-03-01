@@ -8,87 +8,32 @@ class PoemList extends Component {
 
     render(){
         console.log('POEM LIST');
-        // let poemList = this.props.poemList;
-        // console.log(poemList);
 
-        let newList = this.props.poemList.map(poem => {
-            const arr = Object.values(poem);
-            console.log(arr);
-            const arr2 = Object.values(arr);
-            return arr2
+        let poemsOut = this.props.poemList.map((poem)=>{
+            let poemVal = Object.values(poem)[0];
+            return poemVal;
         });
+        console.log("poemsOut", poemsOut);
 
-        let first = Object.values(this.props.poemList);
-        console.log(first);
+        poemsOut.forEach((poem)=>{
+            poem.forEach((line)=>{
+                console.log(line);
+            });
+            console.log('\n\n\n\n\n');
+        })
 
-        console.log("new list", newList);
-
-        // poemList.map(poem => {
-        //     console.log("inside map");
-        //     console.log(Object.values(poem));
-        //     const arr = Object.values(poem);
-        //     console.log(Object.values(arr));
-        //     const arr2 = Object.values(arr);
-        //     console.log(Object.values(arr2));
-        //     return arr2[0].join(', ')
-        // })[0];
-
-
-        // console.log(this.props.poemList);
-
-        // let poemList = this.props.poemList;
-        // console.log(poemList);
-
-        // let array = this.props.poemList.map((poem) =>{
-        //     // console.log(poem);
-        //     return Object.values(poem)
-        // });
-
-        // console.log(array.val());
-
-        // this.props.poemList.map(poem => {
-        //     console.log("inside map");
-        //     console.log(Object.values(poem));
-        //     const arr = Object.values(poem);
-        //     console.log(Object.values(arr));
-        //     const arr2 = Object.values(arr);
-        //     console.log(Object.values(arr2));
-        //     return arr2[0].join(', ')
-        // });
-
-        // console.log(typeof(this.props.poemList));
-        // console.log(this.props.poemList['0']);
         return(
             
             <div>
-                <h4>This is List of POEM</h4>
+                <h4>This is List of POEMs</h4>
                 <ul>
                 {/* Take every line in userPoem and print to page */}
                 {
-                    // console.log("print poem list")
-
-                    // this.props.poemList.forEach(() => {
-
-                    // })
-
-                    // this.props.poemList.forEach(() =>{
-                    //     console.log("hellllooooooooo")
-                    //     return(
-                    //             'poem'
-                    //     )
-                    // })
-
-
-                    // this.props.poemList.map((line, i) => {
-                    //     return (
-                    //       <li key={i}>
-                    //         {line}
-                    //       </li>
-                    //     )
-                    //   })
-                    
-
-                    //   console.log(this.props.poemList['-LZq1IG2-oELXIW0QLWY'])
+                    poemsOut.forEach(() =>{
+                        return(
+                                <li>line</li>
+                        )
+                    })
                 }
                 </ul>
             </div>
