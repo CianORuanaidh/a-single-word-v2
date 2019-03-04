@@ -10,16 +10,17 @@ class PoemList extends Component {
     render(){
         return(
             
-            <div className="poemCollection">
-                <h2>Poem Collection</h2>
+            <div className="poemCollection wrapper">
+                <h1>Poem Catalog</h1>
                 {
                 // iterate through this.state.poems.dbPoems 
                 this.props.poemList.map((poem, i) =>{
                     let poemClass = `poem poem${i}`
+                    // console.log("Title: ", poem[1][0])
                     return(
                         // return unorderd list that will contain poem lines
                         <ul key={poem[0]} className={poemClass}>
-                        <li><h2>Poem Title</h2></li>
+                        <li><h2 className="poemTitle">Poem Title</h2></li>
                         {
                         // iterate through each poem and return list of lines
                         poem[1].map((line, i)=>{

@@ -22,27 +22,47 @@ class Poem extends Component {
 
     render(){
         return (
-            <div className="poemHolder">
-            <ul>
-              {/* Take every line in userPoem and print to page */}
-              {
-                this.props.poem.map((line, i) => {
-                  return (
-                    <li key={i}>
-                      {line}
-                    </li>
-                  )
-                })
-              }
-            </ul>
+            <div>
+            
             {
                 (this.props.poem.length > 1) ? 
                 (
-            <form action="submit" onSubmit={this.handleSubmit}>
-              <button type="submit">Save poem</button>
-            </form>
+            <div className="poemHolder">
+              <h2 className="poemTitle">Poem Title</h2>
+              <ul>
+                {/* Take every line in userPoem and print to page */}
+                {
+                  this.props.poem.map((line, i) => {
+                    return (
+                      <li key={i}>
+                        {line}
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+              <form action="submit" onSubmit={this.handleSubmit}>
+                <label className="visuallyHidden" for="userInput">Enter word to generate poem</label>                    
+                <input 
+                    id="userInput"
+                    type="text" 
+                    placeholder="enter one word"
+                    onChange={this.handleChange}
+                    name="title"
+                    value="title"/>
+                <input 
+                    id="userInput"
+                    type="text" 
+                    placeholder="enter one word"
+                    onChange={this.handleChange}
+                    name="author"
+                    value="author"/>
+                
+                <button type="submit">Save poem</button>
+              </form>
+            </div>
                 ) : (
-                    <h1>poem will display here</h1>
+                    <h2></h2>
                 )
             }
           </div>
