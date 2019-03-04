@@ -9,41 +9,45 @@ class Poem extends Component {
           poemAuthor: "",
           canSubmit: true
         }
-        
     } // end of constructor{}
 
 
     handleSubmit = (event) => {
+        console.log(event);
         // prevent default onSubmit function
         event.preventDefault();
         // update poem title
         this.props.poem[0] = this.state.poemTitle;
         // add author
-        this.props.poem.push("Author:" + this.state.poemAuthor);
+        this.props.poem.push("Author: " + this.state.poemAuthor);
         // connect with firebase database
         const oneWordDBRef = firebase.database().ref('poems');
         // push user poem to database
-        console.log(this.props.poem);
         oneWordDBRef.push(this.props.poem);
-        this.state.canSubmit = false;
+        // set canSubmit to be flase to remove saved poem
+        this.setState({
+          canSubmit: false
+        });
     }
   
-    // function that runs onChange (whenever a change occurs)
+    // function that runs onChange (whenever a change occurs in inputs)
     handleChange = (changeEvent) => {
       this.setState({
         [changeEvent.target.name]: changeEvent.target.value
       })
     }
 
+    handleClick = () =>{
+      console.log("CLICKED");
+    }
+
     render(){
         return (
-            <div>
-            
+            <div>            
             {
                 (this.props.poem.length > 1 && this.state.canSubmit) ? 
                 (
             <div className="poemHolder">
-              {/* <h2 className="poemTitle">Poem Title</h2> */}
               <ul>
                 {/* Take every line in userPoem and print to page */}
                 {
@@ -57,7 +61,7 @@ class Poem extends Component {
                 }
               </ul>
               <form action="submit" onSubmit={this.handleSubmit}>
-                <label className="visuallyHidden" for="">Add Title to Poem</label>                    
+                <label className="visuallyHidden" htmlFor="">Add Title to Poem</label>                    
                 <input 
                     id="poemTitle"
                     type="text" 
@@ -75,8 +79,9 @@ class Poem extends Component {
                     value={this.state.poemAuthor}
                     required/>
                 
-                <button type="submit">Save poem</button>
+                <button type="submit" value="save">Save poem</button>
               </form>
+              <button className="tryAgain" onClick={this.handleClick}>Try again?</button>
             </div>
                 ) : (
                     <h2></h2>

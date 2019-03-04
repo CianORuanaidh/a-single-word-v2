@@ -16,7 +16,7 @@ class App extends Component {
       dbPoems: [],
       userMessage: "",
       badInput: false,
-      newSubmit: true
+      // newSubmit: true
     } // end this.state
   } // end of constructor()
 
@@ -58,8 +58,24 @@ class App extends Component {
         this.setState({
           isLoading: true,
         });
-        axios.get(`http://poetrydb.org/lines/${userInput}/lines.json`)
+
+        axios({
+          method: 'GET',
+          url: 'https://proxy.hackeryou.com',
+          //OR url: 'https://proxy.hackeryou.com',
+          dataResponse: 'json',
+          params: {
+            reqUrl: `http://poetrydb.org/lines/${userInput}/lines.json`
+          },
+          xmlToJSON: false
+        })
+        // .then((res) => {
+        //   console.log("PROXY CALL", res);
+        // });
+        
+        // axios.get(`http://poetrydb.org/lines/${userInput}/lines.json`)
           .then((result) => {
+            console.log(result);
             // collect result object and store in a variable
             let sourceText = result.data;
     
@@ -203,7 +219,7 @@ class App extends Component {
     return ( 
       <div className="App">
         <header className="wrapper">
-          <h1>One Word</h1>
+          <h1>A single word</h1>
           {/* <h2 className="subHead">Create a poem mash-up based on one word</h2> */}
           <h2 className="appInfo">Enter a single word below. Using that word, we create a poem for you,
              using lines from the back catalog of classic poets.</h2>
@@ -214,14 +230,14 @@ class App extends Component {
           this.state.isLoading ? 
           (
             // if 'loading' return message
-            <div className="loadingScreen"><div class="lds-ripple"><div></div><div></div></div></div>
+            <div className="loadingScreen"><div className="lds-ripple"><div></div><div></div></div></div>
           ) : (      
             // if NOT 'loading' return for to resubmit
-            /* form to handle input from user */
+            // form to handle input from user
             <form className="inputForm" action="submit" onSubmit={this.handleSubmit}>                         
               {/* text input with name 'searchWord'
                   value is this.state.searchWord */}
-              <label className="visuallyHidden" for="userInput">Enter word to generate poem</label>                    
+              <label className="visuallyHidden" htmlFor="userInput">Enter word to generate poem</label>                    
               <input 
                 id="userInput"
                 type="text" 
@@ -247,31 +263,7 @@ class App extends Component {
         </header>
         <main className="wrapper">
 
-          {/* HEEEEERRRRRRRRR */}
-          
-          {/* <div class="poemHolder">
-            <h2 className="poemTitle">Poem Title</h2>
-            <ul><li>Through summer's gold, or winter's cold, It's I will walk with you.</li><li>They guarded silence, when Oceanus</li><li>And I was then not what I seem,</li><li>By living wings high overhead</li><li>That wills to conquer my defenceless brow</li><li>His beak in poison not his own, tears up</li><li>One hazel lost a leaf of gold</li><li>With love that scorned return sought to unbind</li><li>Consider then, and judge me in this light;</li><li>On the bleak strand, while winter o'er the main</li></ul>
-            <form action="submit">
-            <input 
-                  id="userInput"
-                  type="text" 
-                  placeholder="enter one word"
-                  onChange={this.handleChange}
-                  name="title"
-                  value="title"/>
-              <input 
-                  id="userInput"
-                  type="text" 
-                  placeholder="enter one word"
-                  onChange={this.handleChange}
-                  name="author"
-                  value="author"/>
-            <button type="submit">Save poem</button> 
-            </form>
-          </div>*/}
-          {/* HEEEEERRRRRRRRR */}
-          <Poem poem={this.state.userPoem} newSubmit={this.state.newSubmit}/>
+          <Poem poem={this.state.userPoem}/>
           <PoemList poemList={this.state.dbPoems}/>
 
         </main>

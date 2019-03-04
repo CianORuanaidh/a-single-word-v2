@@ -47,8 +47,9 @@ header {
 }
 
 h1 {
+  text-transform: capitalize;
   font-family: 'Playfair Display SC', serif;
-  font-size: 120px;
+  font-size: 10vw;
   margin: 0;
   text-align: center;
   text-shadow: 1px 1px 1px #ce427c;
@@ -138,6 +139,7 @@ button {
   width: 64px;
   height: 64px;
 }
+
 .lds-ripple div {
   position: absolute;
   border: 4px solid #fff;
@@ -214,6 +216,14 @@ button {
   font-size: 1.5rem;
 }
 
+.poemCollection ul:nth-child(2n +1){
+  /* padding-left: 50px; */
+}
+
+.poemCollection ul:last-child {
+  border-bottom: 0;
+}
+
 .poemHolder form {
   flex-direction: row;
   flex-wrap: wrap;
@@ -238,7 +248,14 @@ button {
   margin-bottom: 10px;
 }
 
+.poemHolder .tryAgain {
+  background: rgb(13,20,43);
+  margin-top: 10px;
+  max-width: 300px;
+}
+
 footer {
+  font-family: 'Cormorant Garamond', serif;
   background: rgb(13,20,43,.93);
   color: white;
   text-align: center;
@@ -246,8 +263,15 @@ footer {
 }
 
 @media (max-width: 760px) {
-  h1 {
-    font-size: 16vw;
+  header h1 {
+    font-size: 12vw;
+    width: 50%;
+    margin: 0 auto;
+    line-height: 90%;
+  }
+
+  .poemCollection h1 {
+    width: 100%;
   }
 
   .appInfo {
@@ -272,8 +296,16 @@ footer {
     margin-right: 0;
   }
 
+  .poemHolder .tryAgain {
+    max-width: 100%;
+  }
+
   .poemHolder input {
     text-align: left;
+  }
+
+  .poem {
+    width: 100%;
   }
 
 }
