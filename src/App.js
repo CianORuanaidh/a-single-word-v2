@@ -15,7 +15,8 @@ class App extends Component {
       userPoem: [],
       dbPoems: [],
       userMessage: "",
-      badInput: false
+      badInput: false,
+      newSubmit: true
     } // end this.state
   } // end of constructor()
 
@@ -23,12 +24,11 @@ class App extends Component {
   // function to access poetry api & return object
   getPoems = () => {
 
-    //////////////// INPUT CHECKKING ////////////////////////
-
     // remove potential leading/trailing white space
     let userInput = this.state.searchWord.trim().toLocaleLowerCase();
     let inputRegex = /[^A-Za-z0-9]/;
 
+    ///// INPUT CHECKKING /////
     // check to see if word is at least 3 letters long
     if (userInput.length > 2) {
 
@@ -80,7 +80,7 @@ class App extends Component {
             // decalare local variables
             let containsWordLines = []; 
             let doesNotContainWordLines = [];
-            let generatedPoem = ["title"];
+            let generatedPoem = ["[Title]"];
             let line = 0;
     
             // delcare RegEx to check strings
@@ -153,6 +153,9 @@ class App extends Component {
     // prevent default action on submit
     event.preventDefault();
     // call function to get poems - getPoems()
+    this.setState({
+      newSubmit: true
+    });
     this.getPoems();
   }
 
@@ -202,7 +205,7 @@ class App extends Component {
         <header className="wrapper">
           <h1>One Word</h1>
           {/* <h2 className="subHead">Create a poem mash-up based on one word</h2> */}
-          <h2 className="appInfo">Enter a single word below. Using that word, we create a poem for you
+          <h2 className="appInfo">Enter a single word below. Using that word, we create a poem for you,
              using lines from the back catalog of classic poets.</h2>
           {/* <p>Each line in your poem appers in a poem that contains the word you entered.</p> */}
 
@@ -211,7 +214,7 @@ class App extends Component {
           this.state.isLoading ? 
           (
             // if 'loading' return message
-            <div className="loadingScreen">Loading</div>
+            <div className="loadingScreen"><div class="lds-ripple"><div></div><div></div></div></div>
           ) : (      
             // if NOT 'loading' return for to resubmit
             /* form to handle input from user */
@@ -268,11 +271,13 @@ class App extends Component {
             </form>
           </div>*/}
           {/* HEEEEERRRRRRRRR */}
-          <Poem poem={this.state.userPoem}/>
+          <Poem poem={this.state.userPoem} newSubmit={this.state.newSubmit}/>
           <PoemList poemList={this.state.dbPoems}/>
 
         </main>
-
+      <footer>
+        Cian O'Ruanaidh &copy; 2019
+      </footer>
       </div> // end of App
     );
   }

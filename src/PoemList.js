@@ -20,7 +20,7 @@ class PoemList extends Component {
                     return(
                         // return unorderd list that will contain poem lines
                         <ul key={poem[0]} className={poemClass}>
-                        <li><h2 className="poemTitle">Poem Title</h2></li>
+                        {/* <li><h2 className="poemTitle">Poem Title</h2></li> */}
                         {
                         // iterate through each poem and return list of lines
                         poem[1].map((line, i)=>{
