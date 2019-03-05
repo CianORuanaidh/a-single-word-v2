@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "2ac1afb50e6cd074d941",
+    "revision": "3639cd9d13b73c22d7b2",
     "url": "/a-single-word-v2/static/css/main.6173dd89.chunk.css"
   },
   {
-    "revision": "2ac1afb50e6cd074d941",
-    "url": "/a-single-word-v2/static/js/main.2ac1afb5.chunk.js"
+    "revision": "3639cd9d13b73c22d7b2",
+    "url": "/a-single-word-v2/static/js/main.3639cd9d.chunk.js"
   },
   {
     "revision": "cc3c2400ab0a5fcf4df9",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/a-single-word-v2/static/media/debby-hudson-607042-unsplash.13634846.jpg"
   },
   {
-    "revision": "d65ff5ed174cc1856541ff3bc53475df",
+    "revision": "d2efaa73e08076ad747d7909fe3c9c98",
     "url": "/a-single-word-v2/index.html"
   }
 ];
